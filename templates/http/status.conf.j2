@@ -3,7 +3,7 @@
 server {
     listen {{ nginx_config_status_port | default('8080') }};
 {% if nginx_config_status_access_log is defined %}
-    access_log{{ ' off' if not nginx_config_status_access_log }}{{ (' ' + nginx_config_status_access_log.location) if nginx_config_status_access_log.location is defined }}{{ (' ' + nginx_config_status_access_log.name) if nginx_config_status_access_log.name is defined }};
+    access_log{{ ' off' if not nginx_config_status_access_log else (' ' + nginx_config_status_access_log.location) if nginx_config_status_access_log.location is defined }}{{ (' ' + nginx_config_status_access_log.name) if nginx_config_status_access_log.name is defined }};
 {% endif %}
     location /nginx_status {
         stub_status on;
